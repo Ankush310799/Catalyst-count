@@ -15,7 +15,7 @@ License
 Installation
 
 Clone the repository:
-git clone https://github.com/your_username/project_name.git
+git clone https://github.com/Ankush310799/Catalyst-count.git
 
 Install dependencies:
 pip install -r requirements.txt
