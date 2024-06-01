@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload File</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .upload-btn {
+            display: inline-flex;
+            justify-content: flex;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            float: center;
+            width: 140px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        h2 {
+            font-size: 24px;
+            color: #333; /* Change color as needed */
+            margin-top: 40px; /* Add margin space on top */
+        }
+
+        .upload-field-container {
+            margin: 20px 0;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'upload_file' %}">Upload Data</a></li>
+            <li><a href="{% url 'query_builder' %}">Query Builder</a></li>
+            <li><a href="{% url 'user_list' %}">Users</a></li>
+            <li style="float:right"><a href="{% url 'login' %}">Logout</a></li>
+        </ul>
+    </nav>
+    <h2>Upload Data</h2>
+    <form id="upload-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="upload-field-container"></div>
+            {{ form.file.label_tag }}
+            {{ form.file }}
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary btn-sm upload-btn">Start Upload</button>
+        </div>
+    </form>
+    <div id="progress-container" style="display:none;">
+        <h3>Uploading in Progress</h3>
+        <div>
+            <div id="progress-bar" style="width: 0%; height: 20px; background-color: #4caf50;"></div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('upload-form').onsubmit = function(event) {
+            event.preventDefault();  // Prevent the form from submitting the traditional way
+
+            var formData = new FormData(this);
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', '{% url "upload_file" %}', true);
+
+            xhr.upload.onprogress = function(event) {
+                if (event.lengthComputable) {
+                    var percentComplete = (event.loaded / event.total) * 100;
+                    document.getElementById('progress-container').style.display = 'block';
+                    document.getElementById('progress-bar').style.width = percentComplete + '%';
+                }
+            };
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Redirect to the user list view after successful upload
+                    window.location.href = '{% url "upload_file" %}';
+                } else {
+                    alert('An error occurred!');
+                }
+            };
+
+            xhr.send(formData);
+        };
+    </script>
+</body>
+</html>

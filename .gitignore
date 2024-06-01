@@ -1,0 +1,22 @@
+# Ignore Python bytecode files
+*.pyc
+
+# Ignore environment-specific files
+.env
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+.csv
+.pdf
+
+# Ignore compiled binaries
+*.exe
+*.dll
+*.so
+
+# Ignore log files
+*.log
+
+# Ignore virtual environment
+venv/

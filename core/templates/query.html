@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Query Builder</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+        } 
+        .form-group {
+            flex: 1;
+            margin-right: 15px;
+        }
+        .form-group:last-child {
+            margin-right: 0;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+        /* .form-container {
+            margin: 20px;
+        }  */
+        .button-group {
+            display: inline-flex;
+            justify-content: flex-start;
+            margin-top: 20px;
+        }
+        .button-group .btn {
+            margin-right: 10px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'upload_file' %}">Upload Data</a></li>
+            <li><a href="{% url 'query_builder' %}">Query Builder</a></li>
+            <li><a href="{% url 'user_list' %}">Users</a></li>
+            <li style="float:right"><a href="{% url 'login' %}">Logout</a></li>
+        </ul>
+    </nav>
+    <div>
+        {% if results is not None %}
+            <div class="alert alert-success">
+                {{ results }} records found for the query
+            </div>
+        {% endif %}
+        <h1>Query Builder</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    {{ form.keyword }}
+                </div>                
+                <div class="form-group col-md-4">
+                    {{ form.industry }}
+                </div>
+                <div class="form-group col-md-4">
+                    {{ form.year_founded }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    {{ form.city }}
+                </div>
+                <div class="form-group col-md-4">
+                    {{ form.state }}
+                </div>
+                <div class="form-group col-md-4">
+                    {{ form.country }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    {{ form.employees_from }}
+                </div>
+                <div class="form-group col-md-4">
+                    {{ form.employees_to }}
+                </div>
+            </div>
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary btn-sm">Query Data</button>
+                <button type="reset" class="btn btn-secondary btn-sm">Reset</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
