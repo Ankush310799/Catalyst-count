@@ -29,12 +29,19 @@ python manage.py runserver
 API Endpoints
 
 User Login - login/ 
+
 New user registration - signup/ 
+
 Log-out authenticated logged in user - logout/ 
+
 Upload CSV file for insert data into database - upload/ 
+
 Fetch Number of queries by keyword or attribute - query/ 
+
 Return filter count - query_count/ 
+
 List of users and user can add another user - users/ 
+
 Deleting user from users list -  delete_user/<int:user_id>/
 
 Usage
